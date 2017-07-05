@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {#<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>#}
+        <script   src="https://code.jquery.com/jquery-3.2.1.min.js"   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="   crossorigin="anonymous"></script>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+            <link rel="stylesheet" href="{{ asset('css/jumbotron-narrow.css') }}" />
+
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+
+
+
+    <div class="container">
+        <div class="header clearfix">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    {#<li role="presentation" class="active"><a href="#">Home</a></li>#}
+                    {#<li role="presentation"><a href="#">About</a></li>#}
+                    <li role="presentation"><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Appartoo</h3>
+        </div>
+
+    {% block body %}
+
+        {% endblock %}
+
+
+        <footer class="footer">
+            <p>&copy; 2017 Appartoo, Inc.</p>
+        </footer>
+
+    </div> <!-- /container -->
+
+
+    {% block javascripts %}
+
+            <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>
+

@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-lg-12">
+                <label class="pull-left "> Profile : </label>
+            </div>
+            <div class="col-lg-6">
+                <label class="control-label col-lg-2 pull-left">Age</label>
+                <div class="col-lg-4 "> {{ profile.age }}</div>
+            </div>
+
+            <div class="col-lg-6">
+                <label class="control-label col-lg-2 pull-left">Famille</label>
+                <div class="col-lg-4 "> {{ profile.famille }}</div>
+            </div>
+
+            <div class="col-lg-6">
+                <label class="control-label col-lg-2 pull-left">Race</label>
+                <div class="col-lg-4 "> {{ profile.race }}</div>
+            </div>
+
+            <div class="col-lg-6">
+                <label class="control-label col-lg-2 pull-left">Nourriture</label>
+                <div class="col-lg-4 "> {{ profile.nourriture }}</div>
+            </div>
+        </div>
+        <div class="row">
+            <a class="pull-left" href="{{ path('profile_new') }} ">Edit</a>
+        </div>
+    </div>
+
+    <div class="row marketing" id="friends">
+        <div>
+            <label> liste d'amis : </label>
+        </div>
+        {% for bonobo in bonobosAmies %}
+            <div id="{{ bonobo.id }}" class="col-lg-3" style="margin-top: 15px;">
+                <div class="col-lg-3">
+                    <label> {{ bonobo.username }}</label>
+                </div>
+                <div class="col-lg-2">
+                    <a id="plusCondition" class="btn btn-sm btn-danger Supprimer-Bononbo">Supprimer </a>
+                </div>
+
+            </div>
+        {% endfor %}
+
+    </div>
+
+    <div class="row marketing" id="nonFriends">
+        <div>
+            <label> Liste de bonobos : </label>
+        </div>
+        {% for bonobo in bonobos %}
+            <div id="{{ bonobo.id }}" class="col-lg-3" style="margin-top: 15px;">
+                <div class="col-lg-3">
+                    <label> {{ bonobo.username }}</label>
+                </div>
+                <div class="col-lg-2">
+                    <a id="plusCondition" class="btn btn-sm btn-primary Ajouter-Bononbo">Ajouter </a>
+                </div>
+
+            </div>
+        {% endfor %}
+
+    </div>
+
+    <script>
+
+        $(function () {
+
+            ajouterBonobo();
+            supprimerBonobo();
+        });
+        function ajouterBonobo() {
+            $(".Ajouter-Bononbo").unbind('click');
+            $(".Ajouter-Bononbo").bind('click', function () {
+
+                var htmlBonobo = '<div id="' + $(this).parent().parent().attr("id") + '" class="col-lg-3" style="margin-top: 15px;" >' +
+                        $(this).parent().parent().html() + '</div>'
+                htmlBonobo = htmlBonobo.replace('<a id="plusCondition" class="btn btn-sm btn-primary Ajouter-Bononbo">Ajouter </a>', '<a id="plusCondition" class="btn btn-sm btn-danger Supprimer-Bononbo">Supprimer </a>');
+
+                $(this).parent().parent().addClass("to_delete");
+
+                $.ajax({
+                    url: '{{ path('ajax_add_amie') }}',
+                    type: 'post',
+                    data: {"data": $(this).parent().parent().attr("id")},
+                    success: function (data, textStatus, jqXHR) {
+                        $("#friends").append(htmlBonobo);
+
+                        $(".to_delete").remove();
+                        supprimerBonobo();
+
+                    }
+                });
+
+
+            });
+        }
+
+        function supprimerBonobo() {
+            $(".Supprimer-Bononbo").unbind('click');
+            $(".Supprimer-Bononbo").bind('click', function () {
+
+                var htmlBonobo = '<div id="' + $(this).parent().parent().attr("id") + '" class="col-lg-3" style="margin-top: 15px;" >' +
+                        $(this).parent().parent().html() + '</div>'
+                htmlBonobo = htmlBonobo.replace('<a id="plusCondition" class="btn btn-sm btn-danger Supprimer-Bononbo">Supprimer </a>','<a id="plusCondition" class="btn btn-sm btn-primary Ajouter-Bononbo">Ajouter </a>');
+
+                $(this).parent().parent().addClass("to_delete");
+
+                $.ajax({
+                    url: '{{ path('ajax_remove_amie') }}',
+                    type: 'post',
+                    data: {"data": $(this).parent().parent().attr("id")},
+                    success: function (data, textStatus, jqXHR) {
+                        $("#nonFriends").append(htmlBonobo);
+
+                        $(".to_delete").remove();
+                        ajouterBonobo();
+
+                    }
+                });
+
+
+            });
+        }
+
+
+
+    </script>
+{% endblock %}

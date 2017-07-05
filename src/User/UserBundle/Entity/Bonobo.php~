@@ -1,0 +1,60 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: root
+ * Date: 04/07/17
+ * Time: 10:00
+ */
+
+namespace User\UserBundle\Entity;
+
+namespace User\UserBundle\Entity;
+
+use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="bonobo")
+ */
+
+class Bonobo extends BaseUser
+{
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+
+    /**
+     * Many Users have Many Users.
+     * @ORM\ManyToMany(targetEntity="Bonobo", mappedBy="myFriends")
+     */
+    private $friendsWithMe;
+
+    /**
+     * Many Users have many Users.
+     * @ORM\ManyToMany(targetEntity="Bonobo", inversedBy="friendsWithMe")
+     * @ORM\JoinTable(name="friends",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="friend_user_id", referencedColumnName="id")}
+     *      )
+     */
+    private $myFriends;
+
+    /**
+     * @ORM\OneToOne(targetEntity="User\UserBundle\Entity\Profile", mappedBy="bonobo",cascade={"persist","remove"})
+     */
+    private $profile;
+
+    public function __construct() {
+        parent::__construct();
+        $this->friendsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->myFriends = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+}

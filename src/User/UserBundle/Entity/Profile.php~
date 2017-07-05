@@ -1,0 +1,67 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: root
+ * Date: 04/07/17
+ * Time: 14:12
+ */
+
+namespace User\UserBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="profile")
+ */
+class Profile
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+    /**
+     * @var string
+     *
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $age;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=228,nullable=true)
+     */
+    private $famille;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=228,nullable=true)
+     */
+    private $race;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=228,nullable=true)
+     */
+    private $nourriture;
+
+    /**
+     * @var
+     * @ORM\OneToOne(targetEntity="User\UserBundle\Entity\Bonobo", inversedBy="profile")
+     */
+    private $bonobo;
+
+
+
+}
