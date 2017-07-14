@@ -1,0 +1,71 @@
+<div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-sm-6">
+                    <b> mon profil </b>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-9">
+                    <b> age</b>
+                </div>
+                <div class="col-sm-3">
+                    <b> {{user.age}} </b>
+                </div>
+                <div class="col-sm-9">
+                    <b> race </b>
+                </div>
+                <div class="col-sm-3">
+                    <b> {{user.race}} </b>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-sm-6">
+                    <b> mes amis</b>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row" ng-repeat="f in user.friends">
+                <div class="col-sm-9">
+                    <b> {{f.user_name}} </b>
+                </div>
+                <div class="col-sm-3">
+                    <a ng-click="remove_Friend(f.id)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form class="form-horizontal  ">
+        <div class="form-group">
+            <input type="text" class="form-control" id="search" placeholder="recherche .." ng-change="search(searchQuery)" ng-model="searchQuery">
+        </div>
+    </form>
+    </br>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-sm-6">
+                    <b> inviter autres amis</b>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row" ng-repeat="nf in notFriends">
+                <div class="col-sm-9">
+                    <b> {{nf.user_name}} </b>
+                </div>
+                <div class="col-sm-3">
+                    <a ng-click="add_Friend(nf.id)" class="btn btn-primary"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

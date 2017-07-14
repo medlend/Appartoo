@@ -1,0 +1,15 @@
+<div>
+    <form>
+        <div class="form-group">
+            <label for="username">Username : </label>
+            <input type="text" class="form-control" id="username" placeholder="Enter username" name="email" ng-model="username">
+        </div>
+        <div class="form-group">
+            <label for="pwd">Password : </label>
+            <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" ng-model="password">
+        </div>
+        <button type="submit" class="btn btn-default" ng-click="login(username, password)">Submit</button>
+    </form>
+    <span ng-show="badCredentials">* Bad Credentials</span>
+    <span ng-show="badToken">* Authentication Failed</span>
+</div>
